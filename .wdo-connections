@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections:connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:connections="http://www.ibm.com/websphere/wdo/connections">
+  <connection id="DariaDB">
+    <development xsi:type="connections:rsc-live-connection" id="DariaDB_dev" name="DariaDB"/>
+    <runtime xsi:type="connections:datasource-connection" auto-deploy="true" class-location="C:\Program Files\IBM\SQLLIB\java\db2jcc4.jar;C:\Program Files\IBM\SQLLIB\java\db2jcc_license_cu.jar" id="DariaDB_runtime" classname="com.ibm.db2.jcc.DB2ConnectionPoolDataSource" database-name="SAMPLE" jndi-name="jdbc/DariaDB" port-number="50000" resource-reference-name="DariaDB" server-name="localhost" sql-vendor-type="-1" userid="db2admin"/>
+  </connection>
+</connections:connections>

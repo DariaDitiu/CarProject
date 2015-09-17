@@ -49,5 +49,9 @@ public class CarService {
 		System.out.println(machine.getModel());
 		return machine;
 	}
+	
+	public void postMes(){
+		
+	}
 
 }

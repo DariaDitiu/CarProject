@@ -10,6 +10,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 import model.Machine;
 import service.CarService;
@@ -30,11 +32,12 @@ public class CarRestService {
 
 	@GET
 	@Path("{id}")
-	public void getCar(@PathParam("id") int id) {
+	@Produces("application/json")
+	public Response getCar(@PathParam("id") int id) {
 
 		Machine machine = service.get(id);
 		System.out.println(machine);
-		// return Response.ok(machine).build();
+		return Response.ok(machine).build();
 	}
 
 	@POST

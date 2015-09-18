@@ -47,9 +47,9 @@ public class CarService {
 	
 	
 	public Machine get(int id) {
-		entity.getTransaction().begin();
+		//entity.getTransaction().begin();
 		Machine machine = entity.find(Machine.class, id);
-		entity.flush();
+		//entity.flush();
 		return machine;
 	}
 

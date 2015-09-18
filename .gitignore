@@ -2,5 +2,8 @@
 /.settings
 *.class
 /META-INF
+/META-INF
 /classes
 web.xml
+orm.xml
+persistence.xml

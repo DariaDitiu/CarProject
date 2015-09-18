@@ -13,7 +13,7 @@
 	</welcome-file-list>
 	<resource-ref>
 		<description>Auto Generated - SDO Datasource connection to SAMPLE</description>
-		<res-ref-name>DariaDB</res-ref-name>
+		<res-ref-name>luciandb</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 		<res-sharing-scope>Shareable</res-sharing-scope>

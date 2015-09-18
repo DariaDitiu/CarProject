@@ -1,3 +1,5 @@
 /.apt_generated
 /.settings
 *.class
+/.apt_generated/
+/.apt_generated/

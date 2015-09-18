@@ -5,7 +5,7 @@
 	version="1.0">
 	<persistence-unit-metadata>
 		<persistence-unit-defaults>
-			<schema>DARIAD</schema>
+			<schema>LUCIAN.TUDUCE</schema>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
 </entity-mappings>

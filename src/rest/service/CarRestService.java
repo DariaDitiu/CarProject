@@ -1,14 +1,15 @@
 package rest.service;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
 
 import model.Machine;
 import service.CarService;
@@ -20,29 +21,44 @@ public class CarRestService {
 	@EJB
 	private CarService service;
 
-	@POST
-	@Path("/add")
-	public Response addUser(@FormParam("name") String name, @FormParam("age") int age) {	
-		return Response.status(200)
-					   .entity("addUser is called, name : " + name + ", age : " + age).build();
+	@GET
+	public void getAllCars() {
+
+		List<Machine> machines = service.getAll();
+		// return Response.status(200).entity(machines).build();
 	}
 
 	@GET
-	@Path("/{id}")
+	@Path("{id}")
 	public void getCar(@PathParam("id") int id) {
-		Machine m = service.get(2);
-		//m.setModel("bbb");
-		//service.updateCarInDB(2,"Nema");
-		// Machine machine = service.get(2);
-		System.out.println(m);
+
+		Machine machine = service.get(id);
+		System.out.println(machine);
+		// return Response.ok(machine).build();
 	}
-	
-	@DELETE
-	@Path("/delete/{carId}")
-	public void deleteCarRestService(@PathParam("carId") int carId){
-		System.out.println(carId);
-		service.deleteCarFromDB(carId);
-		System.out.println("Car deleted");
+
+	@POST
+	@Path("/add")
+	@Consumes("application/json")
+	public void addCar(Machine machine) {
+
+		service.insertMachineInDB(machine);
+
 	}
+
+	@PUT
+	@Path("/update")
+	@Consumes("application/json")
+	public void updateCar(Machine machine) {
+
+		service.updateMachineInDB(machine);
+
+	}
+
+	// @DELETE
+	// @Path("/{id}")
+	// public String deleteCar(@PathParam("id") int idCar){
+	//
+	// }
 
 }

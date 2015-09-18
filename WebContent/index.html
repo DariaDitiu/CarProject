@@ -3,19 +3,55 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Cars</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+	function updateClicked() {
+
+		$.ajax({
+			url : 'rest/car/update',
+			type : 'PUT',
+			data : '{"machineid" : "' + $("input[name='CarId']").val()
+					+ '", "model" : "' + $("input[name='Model']").val() + '"}',
+			dataType : 'json',
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				alert('PUT was performed.');
+			}
+		});
+	}
+
+	function addClicked() {
+
+		$.ajax({
+			url : 'rest/car/add',
+			type : 'POST',
+			data : '{"machineid" : "' + $("input[name='CarId']").val()
+					+ '", "model" : "' + $("input[name='Model']").val() + '"}',
+			dataType : 'json',
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				alert('POST was performed.');
+			}
+		});
+	}
+</script>
 </head>
+
 <body>
 	<h1>JAX-RS @FormQuery Testing</h1>
 
-	<form action="rest/car/update" method="post">
+	<div>
 		<p>
 			Car Id : <input type="text" name="CarId" />
 		</p>
 		<p>
 			Model : <input type="text" name="Model" />
 		</p>
-		<input type="submit" value="Update Car" />
-		<input type="submit" value="Add Car" />
-	</form>
+		<input type="submit" onclick="addClicked()" value="Add Car" /> <input
+			type="button" onclick="updateClicked()" value="Update Car" />
+	</div>
+
 </body>
 </html>

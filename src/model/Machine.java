@@ -10,29 +10,34 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="\"Machine\"")
-@NamedQuery(name="Machine.findAll", query="SELECT m FROM Machine m")
+@NamedQueries({ @NamedQuery(name = Machine.NQ_MACHINE_FIND_ALL, query = "SELECT m FROM Machine m")})
 public class Machine implements Serializable {
-	private static final long serialVersionUID = 1L;
-
-	public static final String NQ_MACHINE_FIND_ALL = "Machine.findAllMachines";
 	
-	@Id
-	@Column(name="\"MachineId\"")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int machineId;
+	private static final long serialVersionUID = 1L;
+	public static final String NQ_MACHINE_FIND_ALL = "Machine.findAllMachines";
 
-	@Column(name="\"Model\"")
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
+	private int machineid;
+
+	@Column(length=45)
 	private String model;
+
+	//bi-directional many-to-one association to Person
+	@ManyToOne
+	@JoinColumn(name="PERSONID")
+	private Person person;
 
 	public Machine() {
 	}
 
-	public int getMachineId() {
-		return this.machineId;
+	public int getMachineid() {
+		return this.machineid;
 	}
 
-	public void setMachineId(int machineId) {
-		this.machineId = machineId;
+	public void setMachineid(int machineid) {
+		this.machineid = machineid;
 	}
 
 	public String getModel() {
@@ -41,6 +46,14 @@ public class Machine implements Serializable {
 
 	public void setModel(String model) {
 		this.model = model;
+	}
+
+	public Person getPerson() {
+		return this.person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }

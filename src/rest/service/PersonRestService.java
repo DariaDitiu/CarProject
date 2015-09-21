@@ -27,7 +27,7 @@ public class PersonRestService {
 	@GET
 	@Path("/all")
 	@Produces("application/xml")
-	public List<PersonConfig> getAllPersons() {
+	public List<Person> getAllPersons() {
 		return personService.getAll();
 	}
 

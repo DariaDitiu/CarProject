@@ -1,5 +1,6 @@
 package service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,6 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
+
+import org.apache.commons.beanutils.BeanUtils;
+
+import com.fortech.jaxb.PersonConfig;
 
 import model.Person;
 
@@ -32,12 +37,20 @@ public class PersonService {
 	 * @return list of persons
 	 */
 	public List<Person> getAll() {
+		PersonConfig personConfig=null;
 		TypedQuery<Person> query = entity.createNamedQuery(
 				Person.NQ_Person_FIND_ALL, Person.class);
 		List<Person> persons = query.getResultList();
 		for (Person person : persons) {
+			personConfig = new PersonConfig();
+			personConfig.setFirstname(person.getFirstname());
+			personConfig.setLastname(person.getLastname());
+			personConfig.setPersonid(person.getPersonid());
 			System.out.println(person.getFirstname() + " "
 					+ person.getLastname());
+			System.out.println("----------------------------");
+			System.out.println(personConfig.getFirstname()+" "+personConfig.getLastname());
+			System.out.println(personConfig.toString());
 		}
 		return persons;
 	}
@@ -66,7 +79,8 @@ public class PersonService {
 	public void insertPersonInDB(Person person) {
 		entity.getTransaction().begin();
 		entity.persist(person);
-		entity.flush();
+		entity.getTransaction().commit();
+		//entity.flush();
 	}
 
 	/**
@@ -79,7 +93,8 @@ public class PersonService {
 	public void deletePersonFromDB(int personId) {
 		entity.getTransaction().begin();
 		entity.remove(get(personId));
-		entity.flush();
+		entity.getTransaction().commit();
+		//entity.flush();
 	}
 
 	/**
@@ -93,6 +108,7 @@ public class PersonService {
 		entity.getTransaction().begin();
 		entity.merge(person);
 		entity.getTransaction().commit();
+		//entity.flush();
 	}
 
 }

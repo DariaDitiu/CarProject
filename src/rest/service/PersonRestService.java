@@ -11,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import service.PersonService;
@@ -25,7 +26,8 @@ public class PersonRestService {
 
 	@GET
 	@Path("/all")
-	public List<Person> getAllPersons() {
+	@Produces("application/xml")
+	public List<PersonConfig> getAllPersons() {
 		return personService.getAll();
 	}
 
@@ -36,9 +38,9 @@ public class PersonRestService {
 	}
 
 	@DELETE
-	@Path("/delete/{personId}")
-	public void deletePersonFromDB(@PathParam("personId") int personId) {
-		personService.deletePersonFromDB(personId);
+	@Path("/delete/{personid}")
+	public void deletePersonFromDB(@PathParam("personid") int personid) {
+		personService.deletePersonFromDB(personid);
 	}
 
 	@POST

@@ -13,8 +13,9 @@
 			url : 'rest/person/update',
 			type : 'PUT',
 			data : '{"personid" : "' + $("input[name='PersonId']").val()
-					+ '", "firstname" : "' + $("input[name='firstname']").val() 
-					+ '", "lastname" : "' + $("input[name='lastname']").val() + '"}',
+					+ '", "firstname" : "' + $("input[name='firstname']").val()
+					+ '", "lastname" : "' + $("input[name='lastname']").val()
+					+ '"}',
 			dataType : 'json',
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
@@ -29,8 +30,9 @@
 			url : 'rest/person/add',
 			type : 'POST',
 			data : '{"personid" : "' + $("input[name='PersonId']").val()
-					+ '", "firstname" : "' + $("input[name='firstname']").val() 
-					+ '", "lastname" : "' + $("input[name='lastname']").val() + '"}',
+					+ '", "firstname" : "' + $("input[name='firstname']").val()
+					+ '", "lastname" : "' + $("input[name='lastname']").val()
+					+ '"}',
 			dataType : 'json',
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
@@ -38,13 +40,52 @@
 			}
 		});
 	}
-	
+</script>
+<script type="text/javascript">
+	function deletePersonClicked() {
+
+		$.ajax({
+			url : 'rest/person/delete/'
+					+ $("input[name='PersonDeleteId']").val(),
+			type : 'DELETE',
+			success : function(data) {
+				alert('DELETE was performed.');
+			}
+		});
+	}
+</script>
+
+<script type="text/javascript">
+function getPersonListClicked() {    
+    $.ajax({
+        url: "rest/person/all",
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        data: "{}",
+        dataType: "json",
+        success: function (data) {
+            var row = "";
+            $.each(data, function(index, item){
+                row+="<tr><td>"+item.firstname+"</td><td>"+item.lastname+"</td></tr>";
+            });
+            $("#persons").html(row);    
+        },
+        error: function (result) {
+            alert("Error");
+        }
+    });
+}
+
+// $('#getContacts').click(function(){
+//       GetContact();
+// });
+
 </script>
 </head>
 
 <body>
 	<h1>Car Application Testing</h1>
-	<h4>Basic functionalities (insert, update, delete) </h4>
+	<h4>Basic functionalities (insert, update, delete)</h4>
 
 	<div>
 		<p>
@@ -61,5 +102,32 @@
 			value="Update Person" />
 	</div>
 
+	<div>
+		<p>
+			Person Id : <input type="text" name="PersonDeleteId" />
+		</p>
+		<input type="submit" onclick="deletePersonClicked()"
+			value="Delete Person" />
+
+	</div>
+
+	<h1>Display All Persons From DB</h1>
+
+	<div>
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr>
+					<th class="center">Firstname</th>
+					<th class="center">Lastname</th>
+				</tr>
+			</thead>
+
+			<tbody id="persons"></tbody>
+		</table>
+		<input type="submit" onclick="getPersonListClicked()"
+			value="List Persons" />
+
+
+	</div>
 </body>
 </html>

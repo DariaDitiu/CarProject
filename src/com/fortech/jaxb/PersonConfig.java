@@ -25,8 +25,6 @@ public class PersonConfig implements Serializable{
 	private String lastname;
 	@XmlElement(name="Machine", required=true)
 	private List<Machine> machines;
-
-	private static List<PersonConfig> allPersons = new ArrayList<>();
 	
 	public PersonConfig() {
 	}
@@ -63,15 +61,4 @@ public class PersonConfig implements Serializable{
 		this.machines = machines;
 	}
 
-	public static List<PersonConfig> getAllPersons() {
-		return allPersons;
-	}
-
-	public static void setAllPersons(List<PersonConfig> allPersons) {
-		PersonConfig.allPersons = allPersons;
-	}
-	
-	public static void addInLIst(PersonConfig p){
-		allPersons.add(p);
-	}
 }

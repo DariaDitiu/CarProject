@@ -40,9 +40,8 @@ public class PersonRestService {
 	@GET
 	@Path("/allxml")
 	@Produces("application/xml")
-	public List<PersonConfig> getAllPersonConfig(){
-		personService.getFromDBdataToXML();
-		return PersonConfig.getAllPersons();
+	public List<PersonConfig> getAllPersonConfig(){	
+		return personService.getFromDBdataToXML();
 	}
 	
 	@GET

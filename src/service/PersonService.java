@@ -1,5 +1,6 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
 import com.fortech.jaxb.PersonConfig;
+
 import model.Person;
 
 /**
@@ -47,18 +49,20 @@ public class PersonService {
 	 * Method user to get the data from db and add it in the JAXB
 	 * class.
 	 */
-	public void getFromDBdataToXML(){
+	public List<PersonConfig> getFromDBdataToXML(){
 		PersonConfig personConfig=null;
 		TypedQuery<Person> query = entity.createNamedQuery(
 				Person.NQ_Person_FIND_ALL, Person.class);
 		List<Person> persons = query.getResultList();
+		List<PersonConfig> personConfigs = new ArrayList<PersonConfig>();
 		for (Person person : persons) {
 			personConfig = new PersonConfig();
 			personConfig.setFirstname(person.getFirstname());
 			personConfig.setLastname(person.getLastname());
 			personConfig.setPersonid(person.getPersonid());
-			PersonConfig.addInLIst(personConfig);
+			personConfigs.add(personConfig);
 		}
+		return personConfigs;
 	}
 
 	/**

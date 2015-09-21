@@ -15,6 +15,8 @@ import java.util.List;
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static final String NQ_Person_FIND_ALL = "Person.findAll";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)

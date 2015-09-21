@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Person</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+	function updatePersonClicked() {
+
+		$.ajax({
+			url : 'rest/person/update',
+			type : 'PUT',
+			data : '{"personid" : "' + $("input[name='PersonId']").val()
+					+ '", "firstname" : "' + $("input[name='firstname']").val() 
+					+ '", "lastname" : "' + $("input[name='lastname']").val() + '"}',
+			dataType : 'json',
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				alert('PUT was performed.');
+			}
+		});
+	}
+
+	function addPersonClicked() {
+
+		$.ajax({
+			url : 'rest/person/add',
+			type : 'POST',
+			data : '{"personid" : "' + $("input[name='PersonId']").val()
+					+ '", "firstname" : "' + $("input[name='firstname']").val() 
+					+ '", "lastname" : "' + $("input[name='lastname']").val() + '"}',
+			dataType : 'json',
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				alert('POST was performed.');
+			}
+		});
+	}
+	
+</script>
+</head>
+
+<body>
+	<h1>Car Application Testing</h1>
+	<h4>Basic functionalities (insert, update, delete) </h4>
+
+	<div>
+		<p>
+			Person Id : <input type="text" name="PersonId" />
+		</p>
+		<p>
+			Firstname : <input type="text" name="firstname" />
+		</p>
+		<p>
+			Lastname : <input type="text" name="lastname" />
+		</p>
+		<input type="submit" onclick="addPersonClicked()" value="Add Person" />
+		<input type="button" onclick="updatePersonClicked()"
+			value="Update Person" />
+	</div>
+
+</body>
+</html>

@@ -14,6 +14,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
+import com.fortech.jaxb.PersonConfig;
+
 import service.PersonService;
 import model.Person;
 
@@ -25,8 +27,26 @@ public class PersonRestService {
 	private PersonService personService;
 
 	@GET
-	@Path("/all")
+	@Path("/one")
 	@Produces("application/xml")
+	public PersonConfig getPerson(){
+		PersonConfig personConfig = new PersonConfig();
+		personConfig.setFirstname("Lucian");
+		personConfig.setLastname("Tuduce");
+		personConfig.setPersonid(12);
+		return personConfig;
+	}
+	
+	@GET
+	@Path("/allxml")
+	@Produces("application/xml")
+	public List<PersonConfig> getAllPersonConfig(){
+		personService.getFromDBdataToXML();
+		return PersonConfig.getAllPersons();
+	}
+	
+	@GET
+	@Path("/all")
 	public List<Person> getAllPersons() {
 		return personService.getAll();
 	}

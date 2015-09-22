@@ -1,5 +1,7 @@
 package service;
 
+import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -34,22 +36,37 @@ public class PersonService {
 	 * @return list of persons
 	 */
 	public List<Person> getAll() {
-		PersonConfig personConfig=null;
 		TypedQuery<Person> query = entity.createNamedQuery(
 				Person.NQ_Person_FIND_ALL, Person.class);
 		List<Person> persons = query.getResultList();
+		for (Person person : persons) {
+			System.out.println(person.getFirstname() + " "
+					+ person.getLastname());
+		}
+		return persons;
+	}
+
+	/**
+	 * Method user to get the data from db and add it in the JAXB class.
+	 */
+	public List<PersonConfig> getFromDBdataToXML() {
+		PersonConfig personConfig = null;
+		TypedQuery<Person> query = entity.createNamedQuery(
+				Person.NQ_Person_FIND_ALL, Person.class);
+		List<Person> persons = query.getResultList();
+		List<PersonConfig> personConfigs = new ArrayList<PersonConfig>();
 		for (Person person : persons) {
 			personConfig = new PersonConfig();
 			personConfig.setFirstname(person.getFirstname());
 			personConfig.setLastname(person.getLastname());
 			personConfig.setPersonid(person.getPersonid());
-			System.out.println(person.getFirstname() + " "
-					+ person.getLastname());
-			System.out.println("----------------------------");
-			System.out.println(personConfig.getFirstname()+" "+personConfig.getLastname());
-			System.out.println(personConfig.toString());
+			personConfigs.add(personConfig);
 		}
-		return persons;
+
+		for (PersonConfig p : personConfigs) {
+			System.out.println(p.getFirstname() + " " + p.getLastname());
+		}
+		return personConfigs;
 	}
 
 	/**
@@ -73,11 +90,16 @@ public class PersonService {
 	 *            the person that will be added in the database
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void insertPersonInDB(Person person) {
+	public void insertPersonInDB(PersonConfig person) {
+
+		Person p = new Person();
+		p.setFirstname(person.getFirstname());
+		p.setLastname(person.getLastname());
+		p.setPersonid(person.getPersonid());
+
 		entity.getTransaction().begin();
-		entity.persist(person);
+		entity.persist(p);
 		entity.getTransaction().commit();
-		//entity.flush();
 	}
 
 	/**
@@ -91,7 +113,38 @@ public class PersonService {
 		entity.getTransaction().begin();
 		entity.remove(get(personId));
 		entity.getTransaction().commit();
-		//entity.flush();
+	}
+
+	/**
+	 * Method used to update a specific person in the database
+	 * 
+	 * @param person
+	 *            the data of the updated person in the database
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void updatePersonInDB(PersonConfig personConfig) {
+		Person person = new Person();
+		person.setPersonid(personConfig.getPersonid());
+		person.setFirstname(personConfig.getFirstname());
+		person.setLastname(personConfig.getLastname());
+
+		entity.getTransaction().begin();
+		entity.merge(person);
+		entity.getTransaction().commit();
+	}
+
+	/**
+	 * Method used to add a person in the database
+	 * 
+	 * @param person
+	 *            the person that will be added in the database
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void insertPersonInDB(Person person) {
+		entity.getTransaction().begin();
+		entity.persist(person);
+		entity.getTransaction().commit();
+
 	}
 
 	/**
@@ -105,7 +158,6 @@ public class PersonService {
 		entity.getTransaction().begin();
 		entity.merge(person);
 		entity.getTransaction().commit();
-		//entity.flush();
 	}
 
 }

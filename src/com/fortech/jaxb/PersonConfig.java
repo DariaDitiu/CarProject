@@ -10,21 +10,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import model.Machine;
 
-@XmlRootElement(name="PersonJAXB")
+/**
+ * Class that is used to convert the normal person object in an object that will
+ * be stored in the system as a XML object.
+ * 
+ * @author lucian.tuduce
+ *
+ */
+@XmlRootElement(name = "PersonJAXB")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class PersonConfig implements Serializable{
+public class PersonConfig implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlElement(required=true)
+	@XmlElement(required = true)
 	private int personid;
-	@XmlElement(required=true)
+	@XmlElement(required = true)
 	private String firstname;
-	@XmlElement(required=true)
+	@XmlElement(required = true)
 	private String lastname;
-	@XmlElement(name="Machine", required=true)
+	@XmlElement(name = "Machine")
 	private List<Machine> machines;
-	
+
 	public PersonConfig() {
 	}
 

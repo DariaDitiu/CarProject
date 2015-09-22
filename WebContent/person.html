@@ -3,14 +3,60 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Person</title>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
-	function updatePersonClicked() {
+	function updateXMLPersonClicked() {
 
 		$.ajax({
-			url : 'rest/person/update',
+					url : 'rest/person/updatexml',
+					type : 'PUT',
+					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><PersonJAXB><personid>'
+							+ $("input[name='PersonId']").val()
+							+ '</personid><firstname>'
+							+ $("input[name='firstname']").val()
+							+ '</firstname><lastname>'
+							+ $("input[name='lastname']").val()
+							+ '</lastname></PersonJAXB>',
+					dataType : 'xml',
+					contentType : "application/xml",
+					success : function(data) {
+						alert('PUT was performed.');
+					}
+				});
+	}
+
+	function addXMLPersonClicked() {
+
+		$.ajax({
+					url : 'rest/person/addxml',
+					type : 'POST',
+					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><PersonJAXB><personid>'
+							+ $("input[name='PersonId']").val()
+							+ '</personid><firstname>'
+							+ $("input[name='firstname']").val()
+							+ '</firstname><lastname>'
+							+ $("input[name='lastname']").val()
+							+ '</lastname></PersonJAXB>',
+					dataType : 'xml',
+					contentType : "application/xml",
+					success : function(data) {
+						alert('POST was performed.');
+					}
+				});
+	}
+</script>
+
+<script type="text/javascript">
+	function updateJSONPersonClicked() {
+
+		$.ajax({
+			url : 'rest/person/updatejson',
 			type : 'PUT',
 			data : '{"personid" : "' + $("input[name='PersonId']").val()
 					+ '", "firstname" : "' + $("input[name='firstname']").val()
@@ -24,10 +70,10 @@
 		});
 	}
 
-	function addPersonClicked() {
+	function addJSONPersonClicked() {
 
 		$.ajax({
-			url : 'rest/person/add',
+			url : 'rest/person/addjson',
 			type : 'POST',
 			data : '{"personid" : "' + $("input[name='PersonId']").val()
 					+ '", "firstname" : "' + $("input[name='firstname']").val()
@@ -36,6 +82,7 @@
 			dataType : 'json',
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
+				console.log(data);
 				alert('POST was performed.');
 			}
 		});
@@ -93,32 +140,41 @@
 </head>
 
 <body>
-	<h1>Car Application Testing</h1>
-	<h4>Basic functionalities (insert, update, delete)</h4>
 
-	<div>
+	<h1 align="center">Car Application Testing</h1>
+	<h4 align="center">Basic functionalities (insert, update, delete)</h4>
+
+	<div class="container" style="text-align: center">
 		<p>
-			Person Id : <input type="text" name="PersonId" />
+			Person Id : <input type="text" class="form-control" name="PersonId" />
 		</p>
 		<p>
-			Firstname : <input type="text" name="firstname" />
+			Firstname : <input type="text" class="form-control" name="firstname" />
 		</p>
 		<p>
-			Lastname : <input type="text" name="lastname" />
+			Lastname : <input type="text" class="form-control" name="lastname" />
 		</p>
-		<input type="submit" onclick="addPersonClicked()" value="Add Person" />
-		<input type="button" onclick="updatePersonClicked()"
-			value="Update Person" />
+		<input type="button" class="btn btn-primary"
+			onclick="addXMLPersonClicked()" value="Add Person XML" /> <input
+			type="button" class="btn btn-success"
+			onclick="addJSONPersonClicked()" value="Add Person JSON" /> <input
+			type="button" class="btn btn-primary"
+			onclick="updateXMLPersonClicked()" value="Update Person XML" /> <input
+			type="button" class="btn btn-success"
+			onclick="updateJSONPersonClicked()" value="Update Person JSON" />
 	</div>
-	<div>
+	<p></p>
+	<h1 align="center">Delete person from database by ID</h1>
+	<div class="container" style="text-align: center">
 		<p>
-			Person Id : <input type="text" name="PersonDeleteId" />
+			Person Id : <input type="text" class="form-control"
+				name="PersonDeleteId" />
 		</p>
-		<input type="submit" onclick="deletePersonClicked()"
-			value="Delete Person" />
+		<input type="submit" class="btn btn-primary"
+			onclick="deletePersonClicked()" value="Delete Person" />
 	</div>
-	<h1>Display All Persons From DB</h1>
-	<div>
+	<h1 align="center">Display All Persons From DB</h1>
+	<div class="container" style="text-align: center">
 		<table class="table table-striped table-hover table-bordered">
 			<thead>
 				<tr>
@@ -128,8 +184,8 @@
 			</thead>
 			<tbody id="persons"></tbody>
 		</table>
-		<input type="submit" onclick="getPersonListClicked()"
-			value="List Persons" />
+		<input type="submit" class="btn btn-primary"
+			onclick="getPersonListClicked()" value="List Persons" />
 	</div>
 </body>
 </html>

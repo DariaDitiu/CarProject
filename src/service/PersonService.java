@@ -44,13 +44,12 @@ public class PersonService {
 		}
 		return persons;
 	}
-	
+
 	/**
-	 * Method user to get the data from db and add it in the JAXB
-	 * class.
+	 * Method user to get the data from db and add it in the JAXB class.
 	 */
-	public List<PersonConfig> getFromDBdataToXML(){
-		PersonConfig personConfig=null;
+	public List<PersonConfig> getFromDBdataToXML() {
+		PersonConfig personConfig = null;
 		TypedQuery<Person> query = entity.createNamedQuery(
 				Person.NQ_Person_FIND_ALL, Person.class);
 		List<Person> persons = query.getResultList();
@@ -62,9 +61,9 @@ public class PersonService {
 			personConfig.setPersonid(person.getPersonid());
 			personConfigs.add(personConfig);
 		}
-		
-		for(PersonConfig p: personConfigs){
-			System.out.println(p.getFirstname()+" "+p.getLastname());
+
+		for (PersonConfig p : personConfigs) {
+			System.out.println(p.getFirstname() + " " + p.getLastname());
 		}
 		return personConfigs;
 	}
@@ -90,9 +89,15 @@ public class PersonService {
 	 *            the person that will be added in the database
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	public void insertPersonInDB(Person person) {
+	public void insertPersonInDB(PersonConfig person) {
+
+		Person p = new Person();
+		p.setFirstname(person.getFirstname());
+		p.setLastname(person.getLastname());
+		p.setPersonid(person.getPersonid());
+
 		entity.getTransaction().begin();
-		entity.persist(person);
+		entity.persist(p);
 		entity.getTransaction().commit();
 	}
 
@@ -116,10 +121,42 @@ public class PersonService {
 	 *            the data of the updated person in the database
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void updatePersonInDB(PersonConfig personConfig) {
+		Person person = new Person();
+		person.setPersonid(personConfig.getPersonid());
+		person.setFirstname(personConfig.getFirstname());
+		person.setLastname(personConfig.getLastname());
+
+		entity.getTransaction().begin();
+		entity.merge(person);
+		entity.getTransaction().commit();
+	}
+
+	/**
+	 * Method used to add a person in the database
+	 * 
+	 * @param person
+	 *            the person that will be added in the database
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public void insertPersonInDB(Person person) {
+		entity.getTransaction().begin();
+		entity.persist(person);
+		entity.getTransaction().commit();
+
+	}
+
+	/**
+	 * Method used to update a specific person in the database
+	 * 
+	 * @param person
+	 *            the data of the updated person in the database
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void updatePersonInDB(Person person) {
 		entity.getTransaction().begin();
 		entity.merge(person);
-		entity.getTransaction().commit();	
+		entity.getTransaction().commit();
 	}
 
 }

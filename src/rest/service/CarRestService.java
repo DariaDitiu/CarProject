@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -31,12 +32,12 @@ public class CarRestService {
 	}
 
 	@GET
-	@Path("{id}")
+	@Path("{machineid}")
 	@Produces("application/json")
-	public Response getCar(@PathParam("id") int id) {
+	public Response getCar(@PathParam("machineid") int id) {
 
 		Machine machine = service.get(id);
-		System.out.println(machine);
+		//System.out.println(machine);
 		return Response.ok(machine).build();
 	}
 
@@ -58,10 +59,10 @@ public class CarRestService {
 
 	}
 
-	// @DELETE
-	// @Path("/{id}")
-	// public String deleteCar(@PathParam("id") int idCar){
-	//
-	// }
-
+	@DELETE
+	@Path("/delete/{machineid}")
+	public void deleteCarRestService(@PathParam("machineid") int id) {
+		service.deleteCarFromDB(id);
+		System.out.println("Car deleted");
+	}
 }

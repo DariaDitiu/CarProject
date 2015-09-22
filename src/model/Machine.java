@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="\"Machine\"")
+@Table(name="\"Machine\"" )
 @NamedQueries({ @NamedQuery(name = Machine.NQ_MACHINE_FIND_ALL, query = "SELECT m FROM Machine m")})
 public class Machine implements Serializable {
 	
@@ -25,7 +25,7 @@ public class Machine implements Serializable {
 	private String model;
 
 	//bi-directional many-to-one association to Person
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name="PERSONID")
 	private Person person;
 

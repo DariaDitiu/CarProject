@@ -24,7 +24,6 @@ public class CarService {
 	 * 
 	 ** @return all the machines
 	 */
-
 	public List<Machine> getAll() {
 
 		TypedQuery<Machine> query = entity.createNamedQuery(
@@ -40,19 +39,20 @@ public class CarService {
 	/**
 	 * Gets a machine from the database using the given Id
 	 * 
-	 * @param id
-	 *            The machine Id
+	 * @param id The machine Id
+	 *            
 	 * @return the machine with the given Id
 	 */
-	
-	
 	public Machine get(int id) {
-		//entity.getTransaction().begin();
+
 		Machine machine = entity.find(Machine.class, id);
-		//entity.flush();
 		return machine;
 	}
 
+	/**
+	 * 
+	 * @param machine The machine that is inserted into DB
+	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void insertMachineInDB(Machine machine) {
 		entity.getTransaction().begin();
@@ -60,13 +60,27 @@ public class CarService {
 		entity.getTransaction().commit();
 	}
 
+	/**
+	 * 
+	 * @param machine The machine with a given id that is updated in DB 
+	 */
 	public void updateMachineInDB(Machine machine) {
 
 		Machine car = entity.find(Machine.class, machine.getMachineid());
-
 		entity.getTransaction().begin();
 		car.setModel(machine.getModel());
 		entity.getTransaction().commit();
 	}
+	
+	/**
+	 * 
+	 * @param machineId
+	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	 public void deleteCarFromDB(int machineid) {
+	  entity.getTransaction().begin();
+	  entity.remove(get(machineid));
+	  entity.flush();
+	 }
 
 }

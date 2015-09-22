@@ -1,6 +1,5 @@
 package service;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -10,8 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
-
-import org.apache.commons.beanutils.BeanUtils;
 
 import com.fortech.jaxb.PersonConfig;
 

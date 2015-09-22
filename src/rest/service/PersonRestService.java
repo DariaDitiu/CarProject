@@ -26,16 +26,6 @@ public class PersonRestService {
 	@EJB
 	private PersonService personService;
 
-	@GET
-	@Path("/one")
-	@Produces("application/xml")
-	public PersonConfig getPerson(){
-		PersonConfig personConfig = new PersonConfig();
-		personConfig.setFirstname("Lucian");
-		personConfig.setLastname("Tuduce");
-		personConfig.setPersonid(12);
-		return personConfig;
-	}
 	
 	@GET
 	@Path("/allxml")
@@ -44,11 +34,6 @@ public class PersonRestService {
 		return personService.getFromDBdataToXML();
 	}
 	
-	@GET
-	@Path("/all")
-	public List<Person> getAllPersons() {
-		return personService.getAll();
-	}
 
 	@GET
 	@Path("/select")
@@ -58,6 +43,7 @@ public class PersonRestService {
 
 	@DELETE
 	@Path("/delete/{personid}")
+	@Consumes("application/xml")
 	public void deletePersonFromDB(@PathParam("personid") int personid) {
 		personService.deletePersonFromDB(personid);
 	}

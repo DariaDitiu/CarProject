@@ -62,6 +62,10 @@ public class PersonService {
 			personConfig.setPersonid(person.getPersonid());
 			personConfigs.add(personConfig);
 		}
+		
+		for(PersonConfig p: personConfigs){
+			System.out.println(p.getFirstname()+" "+p.getLastname());
+		}
 		return personConfigs;
 	}
 

@@ -50,9 +50,7 @@
 					}
 				});
 	}
-</script>
 
-<script type="text/javascript">
 	function updateJSONPersonClicked() {
 
 		$.ajax({
@@ -87,9 +85,8 @@
 			}
 		});
 	}
-</script>
-<script type="text/javascript">
-	function deletePersonClicked() {
+
+	function deletePersonXMLClicked() {
 
 		$.ajax({
 			url : 'rest/person/delete/'
@@ -102,10 +99,23 @@
 			}
 		});
 	}
-</script>
+	
+	function deletePersonJSONClicked() {
 
-<script type="text/javascript">
-	function getPersonListClicked() {
+		$.ajax({
+			url : 'rest/person/delete/'
+					+ $("input[name='PersonDeleteId']").val(),
+			type : 'DELETE',
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				alert('DELETE was performed.');
+			}
+		});
+	}
+
+
+	function getPersonXMLListClicked() {
 		$.ajax({
 			url : "rest/person/allxml",
 			type : "GET",
@@ -136,13 +146,35 @@
 			}
 		});
 	}
+
+function getPersonJSONListClicked() {    
+    $.ajax({
+        url: "rest/person/alljson",
+        type: "GET",
+        contentType: "application/json; charset=utf-8",
+        data: "{}",
+        dataType: "json",
+        success: function (data) {
+            var row = "";
+            $.each(data, function(index, item){
+                row+="<tr><td>"+item.firstname+"</td><td>"+item.lastname+"</td></tr>";
+            });
+            $("#persons").html(row);    
+        },
+        error: function (result) {
+            alert("Error");
+        }
+    });
+}
+
 </script>
+
 </head>
 
 <body>
 
 	<h1 align="center">Car Application Testing</h1>
-	<h4 align="center">Basic functionalities (insert, update, delete)</h4>
+	<h4 align="center">Basic functionalities (insert, update, delete, display)</h4>
 
 	<div class="container" style="text-align: center">
 		<p>
@@ -171,7 +203,9 @@
 				name="PersonDeleteId" />
 		</p>
 		<input type="submit" class="btn btn-primary"
-			onclick="deletePersonClicked()" value="Delete Person" />
+			onclick="deletePersonXMLClicked()" value="Delete Person XML" />
+			<input type="submit" class="btn btn-success"
+			onclick="deletePersonJSONClicked()" value="Delete Person JSON" />
 	</div>
 	<h1 align="center">Display All Persons From DB</h1>
 	<div class="container" style="text-align: center">
@@ -185,7 +219,9 @@
 			<tbody id="persons"></tbody>
 		</table>
 		<input type="submit" class="btn btn-primary"
-			onclick="getPersonListClicked()" value="List Persons" />
+			onclick="getPersonXMLListClicked()" value="List Persons XML" />
+			<input type="submit" class="btn btn-success"
+			onclick="getPersonJSONListClicked()" value="List Persons JSON" />
 	</div>
 </body>
 </html>

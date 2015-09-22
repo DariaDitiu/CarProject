@@ -52,6 +52,19 @@ public class PersonRestService {
 	public List<PersonConfig> getAllPersonConfig() {
 		return personService.getFromDBdataToXML();
 	}
+	
+	/**
+	 * Method user to return in the web all the users that are present in the
+	 * database.
+	 * 
+	 * @return a list of users
+	 */
+	@GET
+	@Path("/alljson")
+	@Produces("application/json")
+	public List<Person> getAllPerson() {
+		return personService.getAll();
+	}
 
 	/**
 	 * Method user to get from the person service the person that has the id
@@ -76,7 +89,20 @@ public class PersonRestService {
 	@DELETE
 	@Path("/delete/{personid}")
 	@Consumes("application/xml")
-	public void deletePersonFromDB(@PathParam("personid") int personid) {
+	public void deletePersonFromDBXML(@PathParam("personid") int personid) {
+		personService.deletePersonFromDB(personid);
+	}
+	
+	/**
+	 * Method used to delete a person from the database.
+	 * 
+	 * @param personid
+	 *            the id of the person that will be deleted from database
+	 */
+	@DELETE
+	@Path("/delete/{personid}")
+	@Consumes("application/json")
+	public void deletePersonFromDBJSON(@PathParam("personid") int personid) {
 		personService.deletePersonFromDB(personid);
 	}
 

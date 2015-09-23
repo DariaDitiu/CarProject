@@ -4,35 +4,33 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-
 import java.util.List;
-
 
 /**
  * The persistent class for the "Person" database table.
  * 
  */
 @Entity
-@Table(name="\"Person\"")
-@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
+@Table(name = "\"Person\"")
+@NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String NQ_Person_FIND_ALL = "Person.findAll";
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private int personid;
 
-	@Column(length=45)
+	@Column(length = 45)
 	private String firstname;
 
-	@Column(length=45)
+	@Column(length = 45)
 	private String lastname;
 
-	//bi-directional many-to-one association to Machine
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to Machine
+	@OneToMany(mappedBy = "person")
 	private List<Machine> machines;
 
 	public Person() {

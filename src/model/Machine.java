@@ -4,26 +4,31 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-
 /**
- * The persistent class for the MACHINE database table.
+ * The persistent class for the "Machine" database table.
  * 
  */
 @Entity
-//@NamedQuery(name="Machine.findAll", query="SELECT m FROM Machine m")
-@NamedQueries({ @NamedQuery(name = Machine.NQ_MACHINE_FIND_ALL, query = "SELECT m FROM Machine m")})
+@Table(name = "\"Machine\"")
+@NamedQueries({ @NamedQuery(name = Machine.NQ_MACHINE_FIND_ALL, query = "SELECT m FROM Machine m") })
 public class Machine implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
 	public static final String NQ_MACHINE_FIND_ALL = "Machine.findAllMachines";
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private int machineid;
 
+	@Column(length = 45)
 	private String model;
 
-	@ManyToOne
+	// bi-directional many-to-one association to Person
+	@ManyToOne()
+	@JoinColumn(name = "PERSONID")
 	private Person person;
+
 	public Machine() {
 	}
 
@@ -41,6 +46,14 @@ public class Machine implements Serializable {
 
 	public void setModel(String model) {
 		this.model = model;
+	}
+
+	public Person getPerson() {
+		return this.person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 }

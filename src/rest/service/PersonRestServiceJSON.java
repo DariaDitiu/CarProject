@@ -40,7 +40,7 @@ public class PersonRestServiceJSON {
 	 */
 	@EJB
 	private PersonService personService;
-	
+
 	/**
 	 * Method user to return in the web all the users that are present in the
 	 * database.
@@ -67,7 +67,7 @@ public class PersonRestServiceJSON {
 	public Person getPerson(@QueryParam("id") int id) {
 		return personService.get(id);
 	}
-	
+
 	/**
 	 * Method used to delete a person from the database.
 	 * 
@@ -80,7 +80,7 @@ public class PersonRestServiceJSON {
 	public void deletePersonFromDBJSON(@PathParam("personid") int personid) {
 		personService.deletePersonFromDB(personid);
 	}
-	
+
 	/**
 	 * Method user to get from the web a person object and send it to the person
 	 * service in order to add it in the database.
@@ -95,7 +95,7 @@ public class PersonRestServiceJSON {
 	public void JSONaddNewPersonInDB(Person person) {
 		personService.insertPersonInDB(person);
 	}
-	
+
 	/**
 	 * Method used to update a existing person in the database. The new
 	 * attributes of the person object will be obtained from the web.
@@ -118,14 +118,14 @@ public class PersonRestServiceJSON {
 		personConfig.setPersonid(10);
 		personConfig.setFirstname("Lucian");
 		personConfig.setLastname("Tuduce");
-		
+
 		StringWriter sw = new StringWriter();
 		JAXBContext jaxbContext = JAXBContext.newInstance(PersonConfig.class);
 		Marshaller jMarshaller = jaxbContext.createMarshaller();
 		jMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 		jMarshaller.marshal(personConfig, sw);
 		return Response.status(200).entity(sw.toString()).build();
-		
+
 	}
 
 }

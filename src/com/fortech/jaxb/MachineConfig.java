@@ -9,14 +9,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "MachineJAXB")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MachineConfig implements Serializable{
+public class MachineConfig implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@XmlElement(required=true)
+
+	@XmlElement(required = true)
 	private int machineid;
-	
-	@XmlElement(required=true)
+
+	@XmlElement(required = true)
 	private String model;
 
 	public int getMachineid() {
@@ -34,6 +34,5 @@ public class MachineConfig implements Serializable{
 	public void setModel(String model) {
 		this.model = model;
 	}
-		
 
 }

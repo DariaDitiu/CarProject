@@ -27,7 +27,7 @@ import model.Person;
 public class PersonService {
 
 	@PersistenceContext(name = "CarProject", type = PersistenceContextType.TRANSACTION)
-	public EntityManager entity;
+	public EntityManager entityManager;
 
 	/**
 	 * Method used to get all the persons from the database
@@ -35,14 +35,9 @@ public class PersonService {
 	 * @return list of persons
 	 */
 	public List<Person> getAll() {
-		TypedQuery<Person> query = entity.createNamedQuery(
+		TypedQuery<Person> query = entityManager.createNamedQuery(
 				Person.NQ_Person_FIND_ALL, Person.class);
-		List<Person> persons = query.getResultList();
-		for (Person person : persons) {
-			System.out.println(person.getFirstname() + " "
-					+ person.getLastname());
-		}
-		return persons;
+		return query.getResultList();
 	}
 
 	/**
@@ -50,20 +45,15 @@ public class PersonService {
 	 */
 	public List<PersonConfig> getFromDBdataToXML() {
 		PersonConfig personConfig = null;
-		TypedQuery<Person> query = entity.createNamedQuery(
+		TypedQuery<Person> query = entityManager.createNamedQuery(
 				Person.NQ_Person_FIND_ALL, Person.class);
-		List<Person> persons = query.getResultList();
 		List<PersonConfig> personConfigs = new ArrayList<PersonConfig>();
-		for (Person person : persons) {
+		for (Person person : query.getResultList()) {
 			personConfig = new PersonConfig();
 			personConfig.setFirstname(person.getFirstname());
 			personConfig.setLastname(person.getLastname());
 			personConfig.setPersonid(person.getPersonid());
 			personConfigs.add(personConfig);
-		}
-
-		for (PersonConfig p : personConfigs) {
-			System.out.println(p.getFirstname() + " " + p.getLastname());
 		}
 		return personConfigs;
 	}
@@ -77,7 +67,7 @@ public class PersonService {
 	 * @return person who has the @param id
 	 */
 	public Person get(int id) {
-		Person person = entity.find(Person.class, id);
+		Person person = entityManager.find(Person.class, id);
 		System.out.println(person.getFirstname() + " " + person.getLastname());
 		return person;
 	}
@@ -96,9 +86,9 @@ public class PersonService {
 		p.setLastname(person.getLastname());
 		p.setPersonid(person.getPersonid());
 
-		entity.getTransaction().begin();
-		entity.persist(p);
-		entity.getTransaction().commit();
+		entityManager.getTransaction().begin();
+		entityManager.persist(p);
+		entityManager.getTransaction().commit();
 	}
 
 	/**
@@ -109,9 +99,9 @@ public class PersonService {
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void deletePersonFromDB(int personId) {
-		entity.getTransaction().begin();
-		entity.remove(get(personId));
-		entity.getTransaction().commit();
+		entityManager.getTransaction().begin();
+		entityManager.remove(get(personId));
+		entityManager.getTransaction().commit();
 	}
 
 	/**
@@ -127,9 +117,9 @@ public class PersonService {
 		person.setFirstname(personConfig.getFirstname());
 		person.setLastname(personConfig.getLastname());
 
-		entity.getTransaction().begin();
-		entity.merge(person);
-		entity.getTransaction().commit();
+		entityManager.getTransaction().begin();
+		entityManager.merge(person);
+		entityManager.getTransaction().commit();
 	}
 
 	/**
@@ -140,9 +130,9 @@ public class PersonService {
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void insertPersonInDB(Person person) {
-		entity.getTransaction().begin();
-		entity.persist(person);
-		entity.getTransaction().commit();
+		entityManager.getTransaction().begin();
+		entityManager.persist(person);
+		entityManager.getTransaction().commit();
 
 	}
 
@@ -154,9 +144,9 @@ public class PersonService {
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void updatePersonInDB(Person person) {
-		entity.getTransaction().begin();
-		entity.merge(person);
-		entity.getTransaction().commit();
+		entityManager.getTransaction().begin();
+		entityManager.merge(person);
+		entityManager.getTransaction().commit();
 	}
 
 }

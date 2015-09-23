@@ -24,6 +24,18 @@
 			<attribute name="owner.project.facets" value="jpt.jpa"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/commons-beanutils-1.9.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/resteasy-client-3.0.13.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/javax.ws.rs-api-2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/httpclient-4.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/resteasy-jaxrs-3.0.13.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/jboss-logging-3.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/slf4j-simple-1.7.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/slf4j-log4j12-1.7.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/commons-logging-1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/commons-logging-1.2/commons-logging-1.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/httpcore-4.4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/lucian.tuduce/Desktop/wink-1.1-incubating.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

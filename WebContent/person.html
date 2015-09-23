@@ -9,12 +9,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 <script type="text/javascript">
 	function updateXMLPersonClicked() {
 
-		$.ajax({
-					url : 'rest/person/updatexml',
+				$.ajax({
+					url : 'rest/personxml/updatexml',
 					type : 'PUT',
 					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><PersonJAXB><personid>'
 							+ $("input[name='PersonId']").val()
@@ -33,8 +32,8 @@
 
 	function addXMLPersonClicked() {
 
-		$.ajax({
-					url : 'rest/person/addxml',
+				$.ajax({
+					url : 'rest/personxml/addxml',
 					type : 'POST',
 					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><PersonJAXB><personid>'
 							+ $("input[name='PersonId']").val()
@@ -54,7 +53,7 @@
 	function updateJSONPersonClicked() {
 
 		$.ajax({
-			url : 'rest/person/updatejson',
+			url : 'rest/personjson/updatejson',
 			type : 'PUT',
 			data : '{"personid" : "' + $("input[name='PersonId']").val()
 					+ '", "firstname" : "' + $("input[name='firstname']").val()
@@ -71,7 +70,7 @@
 	function addJSONPersonClicked() {
 
 		$.ajax({
-			url : 'rest/person/addjson',
+			url : 'rest/personjson/addjson',
 			type : 'POST',
 			data : '{"personid" : "' + $("input[name='PersonId']").val()
 					+ '", "firstname" : "' + $("input[name='firstname']").val()
@@ -89,7 +88,7 @@
 	function deletePersonXMLClicked() {
 
 		$.ajax({
-			url : 'rest/person/delete/'
+			url : 'rest/personxml/delete/'
 					+ $("input[name='PersonDeleteId']").val(),
 			type : 'DELETE',
 			dataType : "xml",
@@ -99,11 +98,11 @@
 			}
 		});
 	}
-	
+
 	function deletePersonJSONClicked() {
 
 		$.ajax({
-			url : 'rest/person/delete/'
+			url : 'rest/personjson/delete/'
 					+ $("input[name='PersonDeleteId']").val(),
 			type : 'DELETE',
 			dataType : "json",
@@ -114,10 +113,9 @@
 		});
 	}
 
-
 	function getPersonXMLListClicked() {
 		$.ajax({
-			url : "rest/person/allxml",
+			url : "rest/personxml/allxml",
 			type : "GET",
 			dataType : "xml",
 			success : function(xml) {
@@ -147,26 +145,26 @@
 		});
 	}
 
-function getPersonJSONListClicked() {    
-    $.ajax({
-        url: "rest/person/alljson",
-        type: "GET",
-        contentType: "application/json; charset=utf-8",
-        data: "{}",
-        dataType: "json",
-        success: function (data) {
-            var row = "";
-            $.each(data, function(index, item){
-                row+="<tr><td>"+item.firstname+"</td><td>"+item.lastname+"</td></tr>";
-            });
-            $("#persons").html(row);    
-        },
-        error: function (result) {
-            alert("Error");
-        }
-    });
-}
-
+	function getPersonJSONListClicked() {
+		$.ajax({
+			url : "rest/personjson/alljson",
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			data : "{}",
+			dataType : "json",
+			success : function(data) {
+				var row = "";
+				$.each(data, function(index, item) {
+					row += "<tr><td>" + item.firstname + "</td><td>"
+							+ item.lastname + "</td></tr>";
+				});
+				$("#persons").html(row);
+			},
+			error : function(result) {
+				alert("Error");
+			}
+		});
+	}
 </script>
 
 </head>
@@ -174,7 +172,8 @@ function getPersonJSONListClicked() {
 <body>
 
 	<h1 align="center">Car Application Testing</h1>
-	<h4 align="center">Basic functionalities (insert, update, delete, display)</h4>
+	<h4 align="center">Basic functionalities (insert, update, delete,
+		display)</h4>
 
 	<div class="container" style="text-align: center">
 		<p>
@@ -203,8 +202,8 @@ function getPersonJSONListClicked() {
 				name="PersonDeleteId" />
 		</p>
 		<input type="submit" class="btn btn-primary"
-			onclick="deletePersonXMLClicked()" value="Delete Person XML" />
-			<input type="submit" class="btn btn-success"
+			onclick="deletePersonXMLClicked()" value="Delete Person XML" /> <input
+			type="submit" class="btn btn-success"
 			onclick="deletePersonJSONClicked()" value="Delete Person JSON" />
 	</div>
 	<h1 align="center">Display All Persons From DB</h1>
@@ -219,8 +218,8 @@ function getPersonJSONListClicked() {
 			<tbody id="persons"></tbody>
 		</table>
 		<input type="submit" class="btn btn-primary"
-			onclick="getPersonXMLListClicked()" value="List Persons XML" />
-			<input type="submit" class="btn btn-success"
+			onclick="getPersonXMLListClicked()" value="List Persons XML" /> <input
+			type="submit" class="btn btn-success"
 			onclick="getPersonJSONListClicked()" value="List Persons JSON" />
 	</div>
 </body>

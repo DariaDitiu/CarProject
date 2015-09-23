@@ -1,7 +1,5 @@
 package rest.service;
 
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -26,7 +24,7 @@ public class CarRestService {
 	@GET
 	public void getAllCars() {
 
-		List<Machine> machines = service.getAll();
+		//List<Machine> machines = service.getAll();
 		// return Response.status(200).entity(machines).build();
 	}
 

@@ -3,8 +3,12 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Cars</title>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 	function updateClicked() {
@@ -22,6 +26,25 @@
 		});
 	}
 
+	function updateXMLClicked() {
+
+		$
+				.ajax({
+					url : 'rest/car/updatexml',
+					type : 'PUT',
+					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><MachineJAXB><machineid>'
+							+ $("input[name='CarId']").val()
+							+ '</machineid><model>'
+							+ $("input[name='Model']").val()
+							+ '</model></MachineJAXB>',
+					dataType : 'xml',
+					contentType : "application/xml",
+					success : function(data) {
+						alert('PUT was performed.');
+					}
+				});
+	}
+
 	function addClicked() {
 
 		$.ajax({
@@ -36,22 +59,164 @@
 			}
 		});
 	}
+
+	function addXMLClicked() {
+
+		$
+				.ajax({
+					url : 'rest/car/addxml',
+					type : 'POST',
+					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><MachineJAXB><machineid>'
+							+ $("input[name='CarId']").val()
+							+ '</machineid><model>'
+							+ $("input[name='Model']").val()
+							+ '</model></MachineJAXB>',
+					dataType : 'xml',
+					contentType : "application/xml",
+					success : function(data) {
+						alert('POST was performed.');
+					}
+				});
+	}
+
+	function deleteClicked() {
+
+		$.ajax({
+			url : 'rest/car/delete/' + $("input[name='CarDeleteId']").val(),
+			type : 'DELETE',
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				alert('DELETE was performed.');
+			}
+		});
+	}
+
+	function deleteXMLClicked() {
+
+		$.ajax({
+			url : 'rest/car/deletexml/' + $("input[name='CarDeleteId']").val(),
+			type : 'DELETE',
+			dataType : "xml",
+			contentType : "application/xml; charset=utf-8",
+			success : function(data) {
+				alert('DELETE was performed.');
+			}
+		});
+	}
+
+	function getCarListClicked() {
+		$.ajax({
+			url : "rest/car/all",
+			type : "GET",
+			data : '{}',
+			dataType : "json",
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+				var row = "";
+				$.each(data, function(index, item) {
+					row += "<tr><td>" + item.machineid + "</td><td>"
+							+ item.model + "</td></tr>";
+				});
+
+				$("#machine").html(row);
+			},
+			error : function(result) {
+			
+				alert("Bucla Infinita");
+			}
+		});
+	}
+	function getCarXMLListClicked() {
+		$.ajax({
+			url : "rest/car/allxml",
+			type : "GET",
+			dataType : "xml",
+			success : function(xml) {
+
+				var fn = [];
+				$(xml).find('MachineJAXB').each(function() {
+					$(this).find("machineid").each(function() {
+						var machineid = $(this).text();
+						fn.push(machineid);
+					});
+				});
+
+				var ln = [];
+				$(xml).find('MachineJAXB').each(function() {
+					$(this).find("model").each(function() {
+						var model = $(this).text();
+						ln.push(model);
+					});
+				});
+
+				var row = "";
+				for (var i = 0; i < fn.length; i++) {
+					row += "<tr><td>" + fn[i] + "</td><td>" + ln[i]
+							+ "</td></tr>";
+				}
+				$("#machine").html(row);
+			}
+		});
+	}
 </script>
 </head>
 
 <body>
-	<h1>JAX-RS @FormQuery Testing</h1>
+	<h1 align="center">Car Application Testing</h1>
+	<h4 align="center">Basic functionalities (insert, update, delete,
+		display)</h4>
 
-	<div>
+	<div class="container" style="text-align: center">
+
 		<p>
-			Car Id : <input type="text" name="CarId" />
+			Car Id : <input type="text" class="form-control" name="CarId">
 		</p>
 		<p>
-			Model : <input type="text" name="Model" />
+			Model : <input type="text" class="form-control" name="Model" />
 		</p>
-		<input type="submit" onclick="addClicked()" value="Add Car" /> <input
-			type="button" onclick="updateClicked()" value="Update Car" />
+		<input type="button" class="btn btn-success" onclick="addClicked()"
+			value="Add Car" /> <input type="button" class="btn btn-success"
+			onclick="updateClicked()" value="Update Car" />
+
+		<p>
+			<input type="button" class="btn btn-primary"
+				onclick="addXMLClicked()" value="Add Car(XML)" /> <input
+				type="button" class="btn btn-primary" onclick="updateXMLClicked()"
+				value="Update Car(XML)" />
+
+		</p>
 	</div>
+
+	<p></p>
+	<h1 align="center">Delete car from database by ID</h1>
+	<div class="container" style="text-align: center">
+		<p>
+			Car Id : <input type="text" class="form-control" name="CarDeleteId" />
+		</p>
+		<input type="submit" class="btn btn-success" onclick="deleteClicked()"
+			value="Delete Car" /> <input type="submit" class="btn btn-primary"
+			onclick="deleteXMLClicked()" value="Delete Car XML" />
+	</div>
+
+	<h1 align="center">Display All Cars From DB</h1>
+	<div class="container" style="text-align: center">
+		<table class="table table-striped table-hover table-bordered">
+			<thead>
+				<tr>
+					<th class="center">Car Id</th>
+					<th class="center">Model</th>
+				</tr>
+			</thead>
+			<tbody id="machine"></tbody>
+		</table>
+		<input type="submit" class="btn btn-success"
+			onclick="getCarListClicked()" value="View Car" /> <input
+			type="submit" class="btn btn-primary"
+			onclick="getCarXMLListClicked()" value="View Car XML" />
+
+	</div>
+
 
 </body>
 </html>

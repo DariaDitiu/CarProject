@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -27,6 +28,7 @@ public class Machine implements Serializable {
 	//bi-directional many-to-one association to Person
 	@ManyToOne()
 	@JoinColumn(name="PERSONID")
+	
 	private Person person;
 
 	public Machine() {

@@ -1,11 +1,10 @@
 package rest.service;
 
-<<<<<<< HEAD
-=======
+
 import java.io.StringWriter;
 import java.util.List;
 
->>>>>>> 7aae4327656c14927c8593e9f4cb68f2399e5e80
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -16,13 +15,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-
 import com.fortech.jaxb.MachineConfig;
-import com.fortech.jaxb.PersonConfig;
+
 
 import model.Machine;
 import service.CarService;
@@ -56,10 +53,6 @@ public class CarRestService {
 		return service.getAll();
 	}
 
-<<<<<<< HEAD
-		//List<Machine> machines = service.getAll();
-		// return Response.status(200).entity(machines).build();
-=======
 	/**
 	 * Method that returns to web all the machines that are in DB
 	 * 
@@ -70,7 +63,6 @@ public class CarRestService {
 	@Produces("application/xml")
 	public List<MachineConfig> getAllMachineConfigs() {
 		return service.getFromDBdataToXML();
->>>>>>> 7aae4327656c14927c8593e9f4cb68f2399e5e80
 	}
 
 	/**

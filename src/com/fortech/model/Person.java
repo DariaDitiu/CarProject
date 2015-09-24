@@ -2,20 +2,21 @@ package com.fortech.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
+import java.util.List;
 
 /**
  * The persistent class for the "Person" database table.
  * 
  */
 @Entity
-@Table(name="\"Person\"")
-@NamedQuery(name="Person.findAll", query="SELECT p FROM Person p")
+@Table(name = "\"Person\"")
+@NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String NQ_Person_FIND_ALL = "Person.findAll";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int personid;
@@ -24,8 +25,8 @@ public class Person implements Serializable {
 
 	private String lastname;
 
-	//bi-directional many-to-one association to Machine
-	@OneToMany(mappedBy="person")
+	// bi-directional many-to-one association to Machine
+	@OneToMany(mappedBy = "person")
 	private List<Machine> machines;
 
 	public Person() {

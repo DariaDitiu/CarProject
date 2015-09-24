@@ -1,11 +1,7 @@
 package com.fortech.rest;
 
-
 import java.io.StringWriter;
 import java.util.List;
-
-
-
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,12 +13,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import com.fortech.jaxb.MachineConfig;
-
+import com.fortech.jaxb.PersonConfig;
 
 import com.fortech.model.Machine;
 import com.fortech.persistence.CarService;

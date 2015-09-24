@@ -1,10 +1,7 @@
-package model;
+package com.fortech.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
-
 import java.util.List;
 
 
@@ -19,16 +16,12 @@ public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final String NQ_Person_FIND_ALL = "Person.findAll";
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int personid;
 
-	@Column(length=45)
 	private String firstname;
 
-	@Column(length=45)
 	private String lastname;
 
 	//bi-directional many-to-one association to Machine

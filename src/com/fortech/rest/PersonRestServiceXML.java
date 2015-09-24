@@ -1,4 +1,4 @@
-package rest.service;
+package com.fortech.rest;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import com.fortech.jaxb.PersonConfig;
 
-import service.PersonService;
-import model.Person;
+import com.fortech.jaxb.PersonConfig;
+import com.fortech.model.Person;
+import com.fortech.persistence.PersonService;
 
 /**
  * Class that is used as a REST service class. In here the communication with

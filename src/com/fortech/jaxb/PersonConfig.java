@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import model.Machine;
+import com.fortech.model.Machine;
 
 /**
  * Class that is used to convert the normal person object in an object that will

@@ -1,4 +1,4 @@
-package service;
+package com.fortech.persistence;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
-import model.Machine;
-import model.Person;
-
 import com.fortech.jaxb.MachineConfig;
+import com.fortech.model.Machine;
+import com.fortech.model.Person;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -22,7 +21,7 @@ public class CarService {
 
 	@PersistenceContext(name = "CarProject", type = PersistenceContextType.TRANSACTION)
 	public EntityManager entity;
-
+	
 	/**
 	 * Gets all machines from the database
 	 * 
@@ -75,6 +74,7 @@ public class CarService {
 	 */
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void insertMachineInDB(Machine machine) {
+		machine.setPerson(entity.find(Person.class, 1));
 		entity.getTransaction().begin();
 		entity.persist(machine);
 		entity.getTransaction().commit();
@@ -154,7 +154,6 @@ public class CarService {
 		for (Machine machine : machines) {
 			machineConfig = new MachineConfig();
 			machineConfig.setMachineid(machine.getMachineid());
-			;
 			machineConfig.setModel(machine.getModel());
 			machineConfigs.add(machineConfig);
 		}

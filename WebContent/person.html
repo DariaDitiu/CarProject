@@ -12,7 +12,8 @@
 <script type="text/javascript">
 	function updateXMLPersonClicked() {
 
-				$.ajax({
+		$
+				.ajax({
 					url : 'rest/personxml/updatexml',
 					type : 'PUT',
 					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><PersonJAXB><personid>'
@@ -32,12 +33,12 @@
 
 	function addXMLPersonClicked() {
 
-				$.ajax({
+		$
+				.ajax({
 					url : 'rest/personxml/addxml',
 					type : 'POST',
-					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><PersonJAXB><personid>'
-							+ $("input[name='PersonId']").val()
-							+ '</personid><firstname>'
+					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><PersonJAXB>'
+							+ '<firstname>'
 							+ $("input[name='firstname']").val()
 							+ '</firstname><lastname>'
 							+ $("input[name='lastname']").val()
@@ -72,8 +73,7 @@
 		$.ajax({
 			url : 'rest/personjson/addjson',
 			type : 'POST',
-			data : '{"personid" : "' + $("input[name='PersonId']").val()
-					+ '", "firstname" : "' + $("input[name='firstname']").val()
+			data : '{"firstname" : "' + $("input[name='firstname']").val()
 					+ '", "lastname" : "' + $("input[name='lastname']").val()
 					+ '"}',
 			dataType : 'json',
@@ -177,7 +177,9 @@
 
 	<div class="container" style="text-align: center">
 		<p>
-			Person Id : <input type="text" class="form-control" name="PersonId" />
+			Person Id : <input type="text" class="form-control"
+				placeholder="Only for update you need to provide an id"
+				name="PersonId" />
 		</p>
 		<p>
 			Firstname : <input type="text" class="form-control" name="firstname" />

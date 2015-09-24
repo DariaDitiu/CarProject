@@ -1,4 +1,4 @@
-package model;
+package com.fortech.model;
 
 import java.io.Serializable;
 
@@ -10,25 +10,21 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@Table(name="\"Machine\"" )
-@NamedQueries({ @NamedQuery(name = Machine.NQ_MACHINE_FIND_ALL, query = "SELECT m FROM Machine m")})
+@Table(name="\"Machine\"")
+@NamedQuery(name="Machine.findAll", query="SELECT m FROM Machine m")
 public class Machine implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
-	public static final String NQ_MACHINE_FIND_ALL = "Machine.findAllMachines";
 
+	public static final String NQ_MACHINE_FIND_ALL = "Machine.findAll";
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int machineid;
 
-	@Column(length=45)
 	private String model;
 
 	//bi-directional many-to-one association to Person
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name="PERSONID")
-	
 	private Person person;
 
 	public Machine() {

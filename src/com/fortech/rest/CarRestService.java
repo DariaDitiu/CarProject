@@ -1,8 +1,10 @@
-package rest.service;
+package com.fortech.rest;
 
 
 import java.io.StringWriter;
 import java.util.List;
+
+
 
 
 import javax.ejb.EJB;
@@ -18,11 +20,12 @@ import javax.ws.rs.Produces;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
 import com.fortech.jaxb.MachineConfig;
 
 
-import model.Machine;
-import service.CarService;
+import com.fortech.model.Machine;
+import com.fortech.persistence.CarService;
 
 /**
  * Class that is used as a REST service class. In here the communication with
@@ -183,7 +186,6 @@ public class CarRestService {
 
 		MachineConfig machineConfig = new MachineConfig();
 		machineConfig.setMachineid(10);
-		;
 		machineConfig.setModel("Opel");
 
 		StringWriter sw = new StringWriter();

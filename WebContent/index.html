@@ -50,8 +50,7 @@
 		$.ajax({
 			url : 'rest/car/add',
 			type : 'POST',
-			data : '{"machineid" : "' + $("input[name='CarId']").val()
-					+ '", "model" : "' + $("input[name='Model']").val() + '"}',
+			data : '{"model" : "' + $("input[name='Model']").val() + '"}',
 			dataType : 'json',
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
@@ -66,9 +65,8 @@
 				.ajax({
 					url : 'rest/car/addxml',
 					type : 'POST',
-					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><MachineJAXB><machineid>'
-							+ $("input[name='CarId']").val()
-							+ '</machineid><model>'
+					data : '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?><MachineJAXB>'
+							+ '<model>'
 							+ $("input[name='Model']").val()
 							+ '</model></MachineJAXB>',
 					dataType : 'xml',
@@ -122,7 +120,7 @@
 				$("#machine").html(row);
 			},
 			error : function(result) {
-			
+
 				alert("Bucla Infinita");
 			}
 		});
@@ -170,7 +168,8 @@
 	<div class="container" style="text-align: center">
 
 		<p>
-			Car Id : <input type="text" class="form-control" name="CarId">
+			Car Id : <input type="text" class="form-control"
+				placeholder="Only for update you need to provide an id" name="CarId">
 		</p>
 		<p>
 			Model : <input type="text" class="form-control" name="Model" />

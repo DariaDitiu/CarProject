@@ -1,7 +1,6 @@
-package service;
+package com.fortech.persistence;
 
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -13,8 +12,7 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
 import com.fortech.jaxb.PersonConfig;
-
-import model.Person;
+import com.fortech.model.Person;
 
 /**
  * Class used to work with the database and perform CRUD operations on the
@@ -67,9 +65,9 @@ public class PersonService {
 	 *            id of the person that will be returned from the database
 	 * @return person who has the @param id
 	 */
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Person get(int id) {
 		Person person = entityManager.find(Person.class, id);
-		System.out.println(person.getFirstname() + " " + person.getLastname());
 		return person;
 	}
 
@@ -85,7 +83,6 @@ public class PersonService {
 		Person p = new Person();
 		p.setFirstname(person.getFirstname());
 		p.setLastname(person.getLastname());
-		p.setPersonid(person.getPersonid());
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(p);
@@ -114,7 +111,6 @@ public class PersonService {
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void updatePersonInDB(PersonConfig personConfig) {
 		Person person = new Person();
-		person.setPersonid(personConfig.getPersonid());
 		person.setFirstname(personConfig.getFirstname());
 		person.setLastname(personConfig.getLastname());
 

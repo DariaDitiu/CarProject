@@ -1,4 +1,4 @@
-package rest.service;
+package com.fortech.rest;
 
 import java.io.StringWriter;
 import java.util.List;
@@ -20,9 +20,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
 import com.fortech.jaxb.PersonConfig;
-
-import service.PersonService;
-import model.Person;
+import com.fortech.model.Person;
+import com.fortech.persistence.PersonService;
 
 /**
  * Class that is used as a REST service class. In here the communication with
